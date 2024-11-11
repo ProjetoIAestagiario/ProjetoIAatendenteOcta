@@ -1,66 +1,149 @@
 import pyttsx3
 import datetime
 import speech_recognition as sr
-from datetime import datetime
+import webbrowser
+import time
 
 texto_fala = pyttsx3.init()
 
+# Configurações iniciais de voz
 
-def falar(audio): #função responsável por transformar texto em fala 
-    rate = texto_fala.getProperty('rate')
-    texto_fala.setProperty('rate',170) #alteração da velocidade da voz
+
+def configurar_voz():
+    texto_fala.setProperty('rate', 220)
     voices = texto_fala.getProperty('voices')
-    texto_fala.setProperty('voice',voices[0].id) #alteração da voz
-    texto_fala.say(audio)
+    texto_fala.setProperty('voice', voices[0].id)  # Voz masculina
+
+# Função para transformar texto em fala
+
+
+def falar(texto):
+    texto_fala.say(texto)
     texto_fala.runAndWait()
 
+# Função para informar a hora atual
 
-def tempo():
-    data_e_hora_atuais = datetime.now()
-    Tempo = data_e_hora_atuais.strftime('%H:%M')
-    falar('Agora são: ')
-    falar(Tempo)
-    print(Tempo)
 
-def data():
-    data_do_dia_de_hoje = datetime.now()
-    Data = data_do_dia_de_hoje.strftime('%d/%m/%Y')
-    falar('A data de hoje é: ')
-    falar(Data)
-    falar('Ócto a sua disposição, como posso ajudá-lo')
-    
-def bem_vindo():
+def informar_hora():
+    hora_atual = datetime.datetime.now().strftime("%H:%M")
+    falar(f"A hora atual é {hora_atual}.")
+    print(f"A hora atual é {hora_atual}.")
 
-    hora = datetime.now().hour
-    if hora >= 6 and hora <12:
-        falar('Bom dia mestre!')
-    elif hora >= 12 and hora <18:
-        falar('Boa tarde mestre')
-    elif hora >= 18 and hora <=24:
-        falar('Boa noite mestre')
+# Função para informar a data atual
+
+
+def informar_data():
+    data_atual = datetime.datetime.now().strftime("%d/%m/%Y")
+    falar(f"A data de hoje é {data_atual}.")
+    print(f"A data de hoje é {data_atual}.")
+
+# Função para tocar música (abre uma pesquisa no YouTube)
+
+
+def tocar_musica():
+    falar("Qual música você gostaria de ouvir?")
+    musica = ouvir_comando()
+    if musica:
+        falar(f"Tocando {musica} no YouTube.")
+        webbrowser.open(
+            f"https://www.youtube.com/results?search_query={musica}")
     else:
-        falar('Bom dia mestre Wendell!')
+        falar("Desculpe, não entendi o nome da música.")
 
-def microphone():
-    r = sr.Recognizer()
-    
+# Saudação inicial
+
+
+def saudacao_inicial():
+    hora = datetime.datetime.now().hour
+    if 6 <= hora < 12:
+        falar("Bom dia! Eu sou Ócto, o assistente virtual da OctaTelecom.")
+    elif 12 <= hora < 18:
+        falar("Boa tarde! Eu sou Ócto, o assistente virtual da OctaTelecom.")
+    else:
+        falar("Boa noite! Eu sou Ócto, o assistente virtual da OctaTelecom.")
+
+    falar("Estou aqui para ajudar você com qualquer dúvida ou suporte relacionado aos nossos serviços de internet.")
+    falar("Posso informar sobre o status da sua fatura, verificar a conexão, ou até tocar uma música se quiser relaxar um pouco.")
+    falar("Estou pronto para ajudar sempre que precisar. Basta dizer 'Ócto' para que eu escute e responda!")
+
+# Função para ouvir comandos de voz
+
+
+def ouvir_comando():
+    recognizer = sr.Recognizer()
     with sr.Microphone() as source:
-        r.pause_threshold = 1
-        audio = r.listen(source)
+        recognizer.adjust_for_ambient_noise(source)
+        print("Escutando...")
+        try:
+            audio = recognizer.listen(
+                source, timeout=10, phrase_time_limit=10)  # Tempo aumentado
+            comando = recognizer.recognize_google(audio, language='pt-BR')
+            print(f"Comando reconhecido: {comando}")
+            return comando.lower()
+        except sr.UnknownValueError:
+            print("Não entendi o comando.")
+            return ""
+        except sr.RequestError:
+            falar("Houve um problema de conexão.")
+            print("Erro de conexão com o Google Speech API.")
+            return ""
 
-    try:
-        print('Reconhecendo...')
-        comando = r.recognize_google(audio,language='pt-BR')
-        print(comando)
-    except Exception as e:
-        print(e)
-        falar('Por favor repita!')
+# Função para responder ao nome e interagir
 
-        return "None"
 
-    return comando
+def responder_chamada():
+    respostas = ["Sim, como posso ajudar?", "Oi, me chamou?",
+                 "Estou aqui, no que posso ajudar?", "Olá, posso ajudar em algo?"]
+    falar(respostas[int(time.time()) % len(respostas)])
+    resposta = ouvir_comando()
+    if resposta == "":
+        falar(
+            "Parece que você me chamou, mas não respondeu. Estou aqui caso precise de algo!")
 
-bem_vindo()
-tempo()
-data()
-microphone()
+# Pergunta se o cliente precisa de mais ajuda após cada comando
+
+
+def perguntar_mais_ajuda():
+    falar("Posso ajudar em mais alguma coisa?")
+    resposta = ouvir_comando()
+    if "sim" in resposta or "ajuda" in resposta:
+        falar("Claro! Como posso ajudar?")
+    else:
+        falar("Ok, estarei aqui caso precise de mim.")
+
+# Função principal de atendimento
+
+
+def atendimento():
+    configurar_voz()
+    saudacao_inicial()  # Apresentação inicial
+    while True:
+        comando = ouvir_comando()
+
+        if "marco" in comando:
+            responder_chamada()
+
+        elif "ajuda" in comando or "suporte" in comando:
+            falar("Estou aqui para ajudar! Diga o que precisa.")
+            perguntar_mais_ajuda()
+
+        elif "hora" in comando:
+            informar_hora()
+            perguntar_mais_ajuda()
+
+        elif "data" in comando:
+            informar_data()
+            perguntar_mais_ajuda()
+
+        elif "tocar música" in comando:
+            tocar_musica()
+            perguntar_mais_ajuda()
+
+        elif "encerrar" in comando:
+            falar(
+                "Encerrando o atendimento. A OctaTelecom agradece sua companhia. Até logo!")
+            break
+
+
+if __name__ == '__main__':
+    atendimento()
