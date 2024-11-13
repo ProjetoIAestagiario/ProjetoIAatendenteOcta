@@ -1,9 +1,9 @@
 # main.py
 import time
-from core.voz import configurar_voz, falar
-from core.util import ouvir_comando, informar_hora, informar_data
-from core.musica import tocar_musica
-from core.saudacao import saudacao_inicial
+from funcoes.voz import configurar_voz, falar
+from funcoes.util import ouvir_comando, informar_hora, informar_data
+from funcoes.musica import tocar_musica
+from funcoes.saudacao import saudacao_inicial
 
 
 def perguntar_mais_ajuda():
