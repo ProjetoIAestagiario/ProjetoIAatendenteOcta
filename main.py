@@ -22,8 +22,20 @@ def responder_chamada():
         "Sim, como posso ajudar?",
         "Oi, me chamou?",
         "Estou aqui, no que posso ajudar?",
-        "Olá, posso ajudar em algo?"
+        "Olá, posso ajudar em algo?",
+        "Oi, em que posso ser útil?",
+        "E aí, como posso te ajudar?",
+        "Oi, o que você precisa?",
+        "Estou à disposição, o que você precisa?",
+        "Oi, em que posso te auxiliar?",
+        "Olá, posso fazer algo por você?",
+        "Oi, qual a sua dúvida?",
+        "Oi, em que posso te apoiar?",
+        "Estou aqui para ajudar, o que você precisa?",
+        "Oi, qual é a sua solicitação?",
+        "Estou disponível, como posso ajudar?"
     ]
+
     falar(respostas[int(time.time()) % len(respostas)])
     resposta = ouvir_comando()
     if not resposta:
