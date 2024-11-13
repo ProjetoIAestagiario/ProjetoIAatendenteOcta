@@ -16,13 +16,21 @@ def informar_data(falar_func):
 
 
 def ouvir_comando():
-    """Escuta o comando do usuário e retorna o texto reconhecido."""
     recognizer = sr.Recognizer()
     with sr.Microphone() as source:
         recognizer.adjust_for_ambient_noise(source)
         try:
-            audio = recognizer.listen(source, timeout=10, phrase_time_limit=10)
+            print("Escutando...")
+            audio = recognizer.listen(source, timeout=30, phrase_time_limit=10)
             comando = recognizer.recognize_google(audio, language='pt-BR')
+            print(f"Comando reconhecido: {comando}")
             return comando.lower()
-        except (sr.UnknownValueError, sr.RequestError):
-            return ""  # Caso não consiga entender ou conectar
+        except sr.UnknownValueError:
+            print("Não entendi o comando.")
+            return ""
+        except sr.RequestError:
+            print("Erro de conexão com o Google Speech API.")
+            return ""
+        except sr.WaitTimeoutError:
+            print("Tempo de escuta expirou. Tente novamente.")
+            return ""
