@@ -58,6 +58,18 @@ def atendimento():
                 "Encerrando o atendimento. A OctaTelecom agradece sua companhia. Até logo!")
             break
 
+def limpar_recursos():
+    print("Limpando recursos antes de sair...")
+
+def main():
+    try:
+        atendimento()  # Chama a função principal de atendimento
+    except KeyboardInterrupt:
+        print("\nOperação interrompida.")
+        limpar_recursos()
+        print("Programa encerrado com sucesso.")
 
 if __name__ == '__main__':
-    atendimento()
+    main()  # Executa a função principal
+
+
