@@ -1,0 +1,27 @@
+octo_assistente/
+│
+├── core/                 # Pasta para as funcionalidades principais
+│   ├── __init__.py       # Arquivo para tornar a pasta um pacote Python
+│   ├── voz.py            # Contém funções de configuração e controle da voz
+│   ├── util.py           # Funções utilitárias como ouvir comandos, hora e data
+│   ├── musica.py         # Funções relacionadas à música (tocar música)
+│   └── saudacao.py       # Funções relacionadas à saudação inicial
+│
+├── main.py               # Arquivo principal que inicia o assistente
+└── requirements.txt      # Dependências do projeto (opcional)
+
+
+
+mkdir octo_assistente
+cd octo_assistente
+mkdir core
+touch main.py requirements.txt
+
+
+
+github:
+
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/ProjetoIAestagiario/teste.git
+git push -u origin main
