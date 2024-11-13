@@ -58,8 +58,10 @@ def atendimento():
                 "Encerrando o atendimento. A OctaTelecom agradece sua companhia. Até logo!")
             break
 
+
 def limpar_recursos():
-    print("Limpando recursos antes de sair...")
+    print("\nLimpando recursos antes de sair...")
+
 
 def main():
     try:
@@ -67,9 +69,8 @@ def main():
     except KeyboardInterrupt:
         print("\nOperação interrompida.")
         limpar_recursos()
-        print("Programa encerrado com sucesso.")
+        """ print("Programa limpo e encerrado com sucesso.") """
+
 
 if __name__ == '__main__':
     main()  # Executa a função principal
-
-
