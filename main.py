@@ -1,9 +1,11 @@
 # main.py
 import time
+
 from funcoes.voz import configurar_voz, falar
 from funcoes.util import ouvir_comando, informar_hora, informar_data
 from funcoes.musica import tocar_musica
 from funcoes.saudacao import saudacao_inicial
+from funcoes.boleto.imprime_boleto import imprimir_boleto
 
 
 def perguntar_mais_ajuda():
@@ -51,7 +53,7 @@ def atendimento():
     while True:
         comando = ouvir_comando()
 
-        if "marco" in comando:
+        if "octo" in comando:
             responder_chamada()
         elif "ajuda" in comando or "suporte" in comando:
             falar("Estou aqui para ajudar! Diga o que precisa.")
@@ -65,6 +67,8 @@ def atendimento():
         elif "tocar música" in comando:
             tocar_musica(falar, ouvir_comando)
             perguntar_mais_ajuda()
+        elif "imprime boleto" in comando:
+            imprimir_boleto()
         elif "encerrar" in comando:
             falar(
                 "Encerrando o atendimento. A OctaTelecom agradece sua companhia. Até logo!")
@@ -82,7 +86,6 @@ def main():
         print("\nOperação interrompida.")
         limpar_recursos()
         """ print("Programa limpo e encerrado com sucesso.") """
-
 
 if __name__ == '__main__':
     main()  # Executa a função principal
