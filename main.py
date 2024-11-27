@@ -64,15 +64,15 @@ def atendimento():
         elif "data" in comando:
             informar_data(falar)
             perguntar_mais_ajuda()
-        elif "tocar música" in comando:
-            tocar_musica(falar, ouvir_comando)
-            perguntar_mais_ajuda()
-        elif "imprime boleto" in comando:
+        elif "imprime boleto" in comando or "boleto" in comando:
             imprimir_boleto()
         elif "encerrar" in comando:
             falar(
                 "Encerrando o atendimento. A OctaTelecom agradece sua companhia. Até logo!")
             break
+        elif "tocar música" in comando:
+            tocar_musica(falar, ouvir_comando)
+            perguntar_mais_ajuda()
 
 
 def limpar_recursos():
