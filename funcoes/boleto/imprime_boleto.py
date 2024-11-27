@@ -4,11 +4,17 @@ import time
 
 # Simula um banco de dados com dois clientes
 clientes = [
-    {"nome": "Marcos Kaynan",
+    {
+     "nome": "Marcos Kaynan",
      "cpf": "12345678900", 
-     "valor_boleto": 120.50},
+     "valor_boleto": 120.50
+     },
 
-    {"cpf": "345", "nome": "Wendell Carlos", "valor_boleto": 89.99}
+    {
+     "nome": "Wendell Carlos",
+     "cpf": "345", 
+     "valor_boleto": 89.99
+     }
 ]
 
 # Inicializa o motor de fala
@@ -75,6 +81,7 @@ def buscar_boleto():
         print("O boleto foi gerado com sucesso.")
         falar("Por favor, dirija-se até um dos nossos atendentes para pegar o seu boleto.")
         print("Por favor, dirija-se até um dos nossos atendentes para pegar o seu boleto.")
+        print("Posso ajudar em algo mais?.") #PAREI AQUI!!!!!!!!
     else:
         falar("Cliente não encontrado. Por favor, tente novamente.")
         print("Erro: Cliente não encontrado.")
