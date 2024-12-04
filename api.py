@@ -1,22 +1,16 @@
 # api
-
-import time
-import random
-import json
-from flask import Flask, request, jsonify
-
+""" importação de todas as bibliotecas """
+from bibliotecas.importacoes import *
 
 app = Flask(__name__)
 
 # Carregar dados fictícios de clientes
-
 
 def carregar_clientes():
     with open('client_data.json', 'r') as file:
         return json.load(file)
 
 # Função para confirmar os dados do cliente
-
 
 def confirmar_dados(cpf):
     clientes = carregar_clientes()
@@ -26,7 +20,6 @@ def confirmar_dados(cpf):
     return None
 
 # Função para simular a consulta de boleto
-
 
 def consultar_boleto(cpf):
     # Simula uma consulta de boleto
@@ -133,7 +126,6 @@ def confirmar_dados(cpf):
     return None
 
 # Função para simular a consulta de boleto
-
 
 def consultar_boleto(cpf):
     # Simula uma consulta de boleto
