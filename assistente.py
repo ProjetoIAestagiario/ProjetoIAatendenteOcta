@@ -1,5 +1,6 @@
 from bibliotecas.importacoes import *
 from function.voz.voz import *
+from function.hora_data import *
 
 
 def validar_cpf(cpf):
@@ -53,14 +54,15 @@ def chamar_teste_velocidade(cpf):
 
 def interagir_com_cliente():
     """Interage com o cliente, oferecendo suporte para boletos e teste de velocidade."""
-    falar("Olá! Tudo bem? Eu sou o assistente da Ócta. Em que posso ajudar você hoje?")
+    #saudacao_cliente() #tenho que tentar adiciona essa funcão aqui.
+
+
     while True:
-        falar("Se precisar, diga 'boleto', 'teste de velocidade' ou 'sair'. Estou aqui para ajudar.")
+        #falar("Se precisar, diga 'boleto', 'teste de velocidade' ou 'sair'. Estou aqui para ajudar.")
         comando = capturar_fala()
         if comando:
             if "boleto" in comando.lower():
                 cpf = pedir_cpf()
-                chamar_boleto(cpf)
             elif "teste" in comando.lower():
                 cpf = pedir_cpf()
                 chamar_teste_velocidade(cpf)

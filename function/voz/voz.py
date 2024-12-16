@@ -16,8 +16,8 @@ def capturar_fala():
     try:
         with sr.Microphone() as source:
             recognizer.adjust_for_ambient_noise(source)
-            falar("Estou ouvindo, pode falar.")
-            print("Aguardando o comando...")
+            #falar("Estou ouvindo, pode falar.")
+            print("Estou ouvindo...")
             audio = recognizer.listen(source)
         return recognizer.recognize_google(audio, language='pt-BR')
     except sr.UnknownValueError:
@@ -27,8 +27,8 @@ def capturar_fala():
     return None
 
 
-def capturar_comando_durante_fala(texto):
-    """Verifica se há uma interrupção enquanto o assistente fala."""
+""" def capturar_comando_durante_fala(texto):
+    #Verifica se há uma interrupção enquanto o assistente fala.
     def ouvir_interrupcao():
         try:
             with sr.Microphone() as source:
@@ -49,3 +49,4 @@ def capturar_comando_durante_fala(texto):
             return comando_interrupcao
     engine.endLoop()
     return None
+ """
